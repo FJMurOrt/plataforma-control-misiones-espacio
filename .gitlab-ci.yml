@@ -2,6 +2,7 @@ image: python:3.14
 
 stages:
   - pruebas
+  - analisis
 
 pruebas:
   stage: pruebas
@@ -15,3 +16,16 @@ pruebas:
 
   script:
     - python -m pytest
+
+analisis-sonarqube:
+  stage: analisis
+
+  tags:
+    - control-misiones
+
+  image:
+    name: sonarsource/sonar-scanner-cli:11
+    entrypoint: [""]
+
+  script:
+    - sonar-scanner -Dsonar.host.url="${SONAR_HOST_URL}"
