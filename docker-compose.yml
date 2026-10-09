@@ -12,5 +12,16 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  api:
+    build: .
+    container_name: control-misiones-api
+    restart: unless-stopped
+    environment:
+      URL_DE_LA_BASE_DE_DATOS: postgresql+psycopg2://usuario_misiones:contraseña_misiones@postgres:5432/control_misiones
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
 volumes:
   postgres_data:

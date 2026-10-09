@@ -1,0 +1,25 @@
+
+---
+- name: Desplegar plataforma de control de misiones
+  hosts: localhost
+  connection: local
+  become: false
+
+  tasks:
+    - name: Comprobar que Docker está disponible
+      ansible.builtin.command: docker --version
+      register: resultado_docker
+      changed_when: false
+
+    - name: Mostrar la versión de Docker
+      ansible.builtin.debug:
+        msg: "{{ resultado_docker.stdout }}"
+
+    - name: Desplegar la plataforma con Docker Compose
+      ansible.builtin.command: docker compose up --build -d
+      args:
+        chdir: "{{ playbook_dir }}/.."
+      register: resultado_despliegue
+      changed_when: >
+        'Started' in resultado_despliegue.stdout or
+        'Created' in resultado_despliegue.stdout
