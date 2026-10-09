@@ -16,7 +16,7 @@
         msg: "{{ resultado_docker.stdout }}"
 
     - name: Desplegar la plataforma con Docker Compose
-      ansible.builtin.command: docker compose up --build -d
+      ansible.builtin.command: docker compose -p plataforma-control-misiones-espacio up --build -d
       args:
         chdir: "{{ playbook_dir }}/.."
       register: resultado_despliegue
