@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_DB: control_misiones
       POSTGRES_USER: usuario_misiones
-      POSTGRES_PASSWORD: contraseña_misiones
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
@@ -17,7 +17,7 @@ services:
     container_name: control-misiones-api
     restart: unless-stopped
     environment:
-      URL_DE_LA_BASE_DE_DATOS: postgresql+psycopg2://usuario_misiones:contraseña_misiones@postgres:5432/control_misiones
+      URL_DE_LA_BASE_DE_DATOS: postgresql+psycopg2://usuario_misiones:${POSTGRES_PASSWORD}@postgres:5432/control_misiones
     ports:
       - "8000:8000"
     depends_on:
