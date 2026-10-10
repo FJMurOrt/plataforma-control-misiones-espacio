@@ -4,9 +4,8 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt
-
-RUN useradd --create-home --shell /usr/sbin/nologin aplicacion
+RUN pip install --no-cache-dir -r requirements.txt 
+    && useradd --create-home --shell /usr/sbin/nologin aplicacion
 
 COPY app/ ./app/
 
